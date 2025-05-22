@@ -12,9 +12,6 @@ services:
       - HTTPS_EXPOSE=5541:5540
       - RI_REDIS_HOST=redis
       - RI_REDIS_PORT=6379
-      - RI_REDIS_PASSWORD=redis
-      - RI_REDIS_USERNAME=redis
-      - RI_REDIS_TLS=false
       - PORT=5540
     expose:
       - 5540
