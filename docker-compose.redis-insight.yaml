@@ -3,9 +3,21 @@
 services:
   redis-insight:
     container_name: ddev-${DDEV_SITENAME}-redis-insight
-    image: ${REDIS_INSIGHT_DOCKER_IMAGE:-busybox:stable}
+    image: ${REDIS_INSIGHT_DOCKER_IMAGE:-redis/redisinsight:latest}
     command: tail -f /dev/null
     restart: "no"
+    environment:
+      - VIRTUAL_HOST=$DDEV_HOSTNAME
+      - HTTP_EXPOSE=5540:5540
+      - HTTPS_EXPOSE=5541:5540
+      - RI_REDIS_HOST=6379
+      - RI_REDIS_PORT=redis
+      - RI_REDIS_PASSWORD=redis
+      - RI_REDIS_USERNAME=redis
+      - RI_REDIS_TLS=false
+      - PORT=5540
+    expose:
+      - 5540
     # These labels ensure this service is discoverable by DDEV.
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}
